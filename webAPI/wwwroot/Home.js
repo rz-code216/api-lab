@@ -1,33 +1,73 @@
-async function signUp() {
-    const user = {
-        firstName: document.querySelector("#signUpFirstName").value,
-        lastName: document.querySelector("#signUpLastName").value,
-        email: document.querySelector("#signUpEmail").value,
-        password: document.querySelector("#signUpPassword").value
-    };
+
+async function signup() {
+    0;
 
     const response = await fetch('/api/Users', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(user)
     });
 
     if (response.ok) {
         alert("User registered successfully!");
-    } else {
+    }
+    else {
         alert("Registration failed");
     }
 }
+async function checkPasswordSrtength() {
+    const password = document.querySelector("#PasswordUp").value;
+    if (!password) {
+        //const pass = document.querySelector("#password-info").value = "enteryourpassword";
+        alert("enter your password");
+        return;
+    }
+    try {
+        const response = await fetch('/api/Users/password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(password),
+        });
 
-async function signIn() {
+        if (!response.ok) {
+            throw new Error(`error ststus: ${response.status}`);
+        }
+        const data = await response.json();
+        const currentPassword = JSON.stringify(data);
+        document.querySelector("#passProgress").value = currentPassword
+
+        if (currentPassword < 2) {
+            //const pass = document.querySelector("#password-info").value = "too low";
+            alert("too low")
+        }
+    }
+    catch (error) {
+        alert(error.message);
+    }
+
+
+
+}
+
+async function signin() {
+
+    const UserName = document.querySelector("#UserName").value;
+    const Password = document.querySelector("#PasswordIn").value;
+
     const loginUser = {
-        email: document.querySelector("#signInEmail").value,
-        password: document.querySelector("#signInPassword").value
+        email: UserName,
+        password: Password
     };
 
     const response = await fetch('/api/Users/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(loginUser)
     });
 
@@ -35,7 +75,8 @@ async function signIn() {
         const user = await response.json();
         sessionStorage.setItem("user", JSON.stringify(user));
         alert("welcome " + user.firstName);
-    } else {
+    }
+    else {
         alert("Incorrect email or password");
     }
 }

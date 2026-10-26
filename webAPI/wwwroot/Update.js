@@ -1,32 +1,52 @@
-﻿const currentUser = JSON.parse(sessionStorage.getItem("user"));
+﻿
 
-document.querySelector("#updateEmail").value = currentUser.email;
-document.querySelector("#updatePassword").value = currentUser.password;
-document.querySelector("#updateFirstName").value = currentUser.firstName;
-document.querySelector("#updateLastName").value = currentUser.lastName;
+const user1 = JSON.parse(sessionStorage.getItem("user"));
+
+
+const email = document.querySelector("#UserName").value;
+const password = document.querySelector("#PasswordUp").value;
+const firstname = document.querySelector("#FirstName").value;
+const lastname = document.querySelector("#LastName").value;
+
+email.value = user1.email;
+password.value = user1.password;
+firstname.value = user1.firstname;
+lastname.value = user1.lastname;
+
 
 async function update() {
-    const id = currentUser.userId;
 
-    const updatedUser = {
-        userId: id,
-        email: document.querySelector("#updateEmail").value,
-        password: document.querySelector("#updatePassword").value,
-        firstName: document.querySelector("#updateFirstName").value,
-        lastName: document.querySelector("#updateLastName").value
+    
+    const id = user1.userId;
+
+    const email = document.querySelector("#UserName").value;
+    const password = document.querySelector("#PasswordUp").value;
+    const firstname = document.querySelector("#FirstName").value;
+    const lastname = document.querySelector("#LastName").value;
+   
+
+    const loginUser = {
+        email,
+        password,
+        firstname,
+        lastname,
     };
-
+    
+    
+    
     const response = await fetch(`/api/Users/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedUser)
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginUser)
     });
 
     if (response.ok) {
-        const savedUser = await response.json();
-        sessionStorage.setItem("user", JSON.stringify(savedUser));
-        alert("The details have been updated.");
-    } else {
+        // const user = await response.json();
+        alert("changes has bben changed! ")// + user.firstName);
+    }
+    else {
         alert("update failed");
     }
 }

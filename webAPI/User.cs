@@ -1,30 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 
 namespace webAPI
 {
     public class User
     {
-        public int UserId { get; set; }
-
         [Required]
-        public string FirstName { get; set; } = "";
-
+        public int userId { get; set; }
         [Required]
-        public string LastName { get; set; } = "";
-
-        [Required, EmailAddress]
-        public string Email { get; set; } = "";
-
+        public string firstname { get; set; }
         [Required]
-        public string Password { get; set; } = "";
+        public string lastname { get; set; }
+        [EmailAddress]
+        public string email { get; set; }
+        [Required]
+        public string password { get; set; } 
     }
-
     public class UserLogIn
     {
         [Required]
-        public string Email { get; set; } = "";
-
+        public string email { get; set; }
         [Required]
-        public string Password { get; set; } = "";
+        public string password { get; set; }
     }
 }
