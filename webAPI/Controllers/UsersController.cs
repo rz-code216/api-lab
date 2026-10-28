@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
+//fix: Removed "using System.Runtime.CompilerServices;" - it was added by mistake and is not used
 using System.Text.Json;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,7 +9,8 @@ namespace webAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private string filePath = "users.txt";
+        //fix: The path never changes, so it can be readonly
+        private readonly string filePath = "users.txt";
 
         // GET: api/<UsersController>
         [HttpGet]
@@ -90,8 +91,12 @@ namespace webAPI.Controllers
                     User user1 = JsonSerializer.Deserialize<User>(currentUserInFile);
                     if (user1.userId == id)
                     {
+                        //user + Environment.NewLine writes the class name (webAPI.User), not JSON: use JsonSerializer.Serialize(user).
+                        //Also, PUT should replace this user's line in the file (with the id from the route), not add a new line at the end
                         System.IO.File.AppendAllText(filePath, user + Environment.NewLine);
                     }
+                    //This return is inside the loop, so only the first line is checked, and for any other id nothing changes.
+                    //Return Ok() only after the user was found and saved
                     return Ok(user);
                 }
             }
