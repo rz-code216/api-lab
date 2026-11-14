@@ -4,6 +4,7 @@ namespace Entities
 {
     public class User
     {
+        //Public properties are PascalCase in C#. Don't rename them (users.txt would stop loading); use JsonSerializerOptions with PropertyNameCaseInsensitive = true instead.
         public int userId { get; set; }
         public string firstname { get; set; }
 

@@ -1,4 +1,5 @@
 
+//Where is user declared? signup() sends user, but no user variable exists in this file
 async function signup() {
     0;
 
