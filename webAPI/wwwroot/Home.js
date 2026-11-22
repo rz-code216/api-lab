@@ -7,6 +7,7 @@ async function signup() {
         headers: {
             'Content-Type': 'application/json'
         },
+        //user is never defined in signup: where should the data come from? Read the form fields as signin does
         body: JSON.stringify(user)
     });
 
@@ -40,6 +41,7 @@ async function checkPasswordSrtength() {
         const currentPassword = JSON.stringify(data);
         document.querySelector("#passProgress").value = currentPassword
 
+        //currentPassword is the JSON text of the data, a string: which value should be compared with 2?
         if (currentPassword < 2) {
             //const pass = document.querySelector("#password-info").value = "too low";
             alert("too low")
