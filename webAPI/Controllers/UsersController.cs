@@ -34,6 +34,7 @@ namespace webAPI.Controllers
             if (user == null)
                 return BadRequest();
 
+            //Where should the password be checked before SignUp? The assignment asks a weak password (score below 3) to return 400: use the password service here
             User? newUser = usersServices.SignUp(user);
             if (newUser == null)
                 return BadRequest();
@@ -64,6 +65,7 @@ namespace webAPI.Controllers
             if (user == null)
                 return BadRequest();
 
+            //Where should the password be checked before Update? The assignment asks a weak password (score below 3) to return 400: use the password service here
             User? updatedUser = usersServices.Update(id, user);
             if (updatedUser == null)
                 return NoContent();

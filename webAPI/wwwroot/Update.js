@@ -8,6 +8,7 @@ const password = document.querySelector("#PasswordUp").value;
 const firstname = document.querySelector("#FirstName").value;
 const lastname = document.querySelector("#LastName").value;
 
+//email is a string here, not the input: set the input's .value, as the other lines of the page do
 email.value = user1.email;
 password.value = user1.password;
 firstname.value = user1.firstname;
