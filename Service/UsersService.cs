@@ -1,10 +1,12 @@
 ﻿using Entity;
+using Microsoft.EntityFrameworkCore;
 using Repositories;
 
 namespace Services
 {
     public class UsersService : IUserService
     {
+        
         private readonly IUsersRepository repository;
         public UsersService(IUsersRepository repository)
         {
@@ -14,7 +16,6 @@ namespace Services
         {
             return await repository.GetUserById(id);
         }
-
         public async Task<User> AddUser(User user)
         {
             if (ValidatePassword(user.Password) > 2)
