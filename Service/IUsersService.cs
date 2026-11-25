@@ -12,5 +12,6 @@ namespace Services
         Task<User> Login(UserLogIn loginUser);
         Task<User> UpdateUser(int id, User user);
         int ValidatePassword(string password);
+        
     }
 }

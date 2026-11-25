@@ -8,7 +8,7 @@ using Repository;
 
 namespace Repository
 {
-    internal class OrdersRepository :IOrdersRepository
+    public class OrdersRepository :IOrdersRepository
     {
         private readonly storeDBContext _dbContext;
 

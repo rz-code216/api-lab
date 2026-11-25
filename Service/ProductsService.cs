@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Service
 {
-    internal class ProductsService : IProductsService
+    public class ProductsService : IProductsService
     {
         private readonly IProductsRepository repository;
         public ProductsService(IProductsRepository repository)

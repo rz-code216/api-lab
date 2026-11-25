@@ -1,5 +1,6 @@
 ﻿using Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Repositories;
 
 namespace Services
@@ -8,9 +9,11 @@ namespace Services
     {
         
         private readonly IUsersRepository repository;
-        public UsersService(IUsersRepository repository)
+        private readonly IConfiguration configuration;
+        public UsersService(IUsersRepository repository, IConfiguration configuration)
         {
             this.repository = repository;
+            this.configuration = configuration;
         }
         public async Task<User> GetUserById(int id)
         {
@@ -18,7 +21,7 @@ namespace Services
         }
         public async Task<User> AddUser(User user)
         {
-            if (ValidatePassword(user.Password) > 2)
+            if (ValidatePassword(user.Password) <= this.configuration.GetValue<int>("PasswordStrengthRequired",3))
                 return await repository.AddUser(user);
             return null;
         }

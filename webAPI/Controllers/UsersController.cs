@@ -10,10 +10,11 @@ namespace webAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _usersService;
-
-        public UsersController(IUserService usersService)
+        ILogger<UsersController> _logger;
+        public UsersController(IUserService usersService, ILogger<UsersController> _logger)
         {
             _usersService = usersService;
+            this._logger = _logger;
         }
 
         // GET: api/<UsersController>
@@ -50,14 +51,15 @@ namespace webAPI.Controllers
         {
             User login = await _usersService.Login(loginUser);
             if (login == null) return NoContent();
+            _logger.LogInformation("user login BF");
             return Ok(login);
         }
 
-        //[HttpPost("password")]
-        //public IActionResult Post([FromBody] string password)
-        //{
-        //    return Ok(_usersService.CheckPassword(password));
-        //}
+        [HttpPost("password")]
+        public IActionResult Post([FromBody] string password)
+        {
+            return Ok(_usersService.ValidatePassword(password));
+        }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]

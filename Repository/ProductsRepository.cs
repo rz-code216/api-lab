@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 namespace Repository
 {
-    internal class ProductsRepository : IProductsRepository
+    public class ProductsRepository : IProductsRepository
     {
         private readonly storeDBContext _dbContext;
 
