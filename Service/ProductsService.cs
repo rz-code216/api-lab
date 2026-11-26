@@ -13,9 +13,10 @@ namespace Service
         {
             this.repository = repository;
         }
-        public async Task<IEnumerable<Product>> GetAllProducts()
+        public async Task<(IEnumerable<Product> Items, int TotalCount)> GetAllProducts(int position, int skip,
+                string? desc, decimal? minPrice, decimal? maxPrice, int?[] categoryIds)
         {
-            return await repository.GetAllProducts();
+            return await repository.GetAllProducts(position, skip, desc, minPrice, maxPrice, categoryIds);
         }
 
         public async Task<Product> GetProductById(int id)

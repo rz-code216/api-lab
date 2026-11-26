@@ -21,7 +21,7 @@ namespace Services
         }
         public async Task<User> AddUser(User user)
         {
-            if (ValidatePassword(user.Password) <= this.configuration.GetValue<int>("PasswordStrengthRequired",3))
+            if (ValidatePassword(user.Password) >= this.configuration.GetValue<int>("PasswordStrengthRequired",3))
                 return await repository.AddUser(user);
             return null;
         }

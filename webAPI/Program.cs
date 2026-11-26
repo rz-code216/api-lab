@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddDbContext<storeDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("school")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("home")));
 builder.Services.AddTransient<IUsersRepository, UsersRepository>();
 builder.Services.AddTransient<IUserService, UsersService>();
 builder.Services.AddTransient<IProductsService, ProductsService>();

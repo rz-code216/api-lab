@@ -50,7 +50,7 @@ namespace webAPI.Controllers
         public async Task<ActionResult<User>> Post([FromBody] UserLogIn loginUser)
         {
             User login = await _usersService.Login(loginUser);
-            if (login == null) return NoContent();
+            if (login == null) return Unauthorized();
             _logger.LogInformation("user login BF");
             return Ok(login);
         }
